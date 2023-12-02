@@ -4,19 +4,24 @@ namespace Bizbozo\Adventofcode2023\Day02;
 
 class Solution
 {
-    static function parseData($data)
+    static function parseData($strean)
     {
         $games = [];
-        foreach ($data as $line) {
+        foreach ($strean as $line) {
+            // Capture id and subsets: Game (3): (8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red)
             if (preg_match('/Game\s(\d+):\s(.*)$/', chop($line), $match)) {
-                $games[$match[1]] = new \Bizbozo\Adventofcode2023\Day02\Game(array_reduce(explode('; ', $match[2]), function ($carry, $subset) {
+                // match: 1=> Game-ID, 2=> subsets
+                $games[$match[1]] = new Game(array_reduce(explode('; ', $match[2]), function ($carry, $subset) {
+                    // subset: e.g. 8 green, 6 blue, 20 red
                     $draw = [];
                     $colorCounts = explode(', ', $subset);
                     foreach ($colorCounts as $colorCount) {
+                        // colorCount: e.g. 8 green
                         list($count, $color) = explode(' ', $colorCount);
                         $draw[$color] = $count;
                     }
-                    $carry[] = \Bizbozo\Adventofcode2023\Day02\CubeDraw::fromTest($draw);
+                    // draw: e.g. [red: 20, green: 8, blue: 6]
+                    $carry[] = CubeDraw::fromTest($draw);
                     return $carry;
                 }, []));
             };
@@ -33,9 +38,11 @@ class Solution
         $score = 0;
         foreach ($games as $id => $game) {
             /** @var Game $game */
+            // named arguments for clearer function call ;)
             if ($game->isValid(red: 12, green: 13, blue: 14)) {
                 $score += $id;
             }
+            // use what is already there
             $setPowerSum += $game->getMinCubes()->power();
         }
 
