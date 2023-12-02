@@ -1,42 +1,14 @@
 <?php
 
-$data = file('input/day1.txt');
+use Bizbozo\Adventofcode2023\Day01\Solution;
 
-$values = [
-    0 => 0,
-    1 => 1,
-    2 => 2,
-    3 => 3,
-    4 => 4,
-    5 => 5,
-    6 => 6,
-    7 => 7,
-    8 => 8,
-    9 => 9,
-    'one' => 1,
-    'two' => 2,
-    'three' => 3,
-    'four' => 4,
-    'five' => 5,
-    'six' => 6,
-    'seven' => 7,
-    'eight' => 8,
-    'nine' => 9,
-    'zero' => 0
-];
+require 'vendor/autoload.php';
 
-$sum = 0;
-foreach ($data as $line) {
-    echo $line . ' ';
-    if (preg_match('/.*?(\d|one|two|three|four|five|six|seven|eight|nine|zero).*/', $line, $match)) {
-        $left = $match[1];
-        if (preg_match('/.*(\d|one|two|three|four|five|six|seven|eight|nine|zero).*?/', $line, $match)) {
-            $right = $match[1];
+echo "Test 1: ";
+Solution::solve(file('input/day1-test.txt')) . PHP_EOL;
 
-            $number = $values[$left] . $values[$right];
-            $sum += $number;
-        }
-    }
-}
+echo "Test 2: ";
+Solution::solve(file('input/day1-test2.txt')) . PHP_EOL;
 
-echo $sum;
+echo "Live: ";
+Solution::solve(file('input/day1.txt')) . PHP_EOL;
