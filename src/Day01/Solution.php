@@ -2,6 +2,9 @@
 
 namespace Bizbozo\Adventofcode2023\Day01;
 
+use Bizbozo\Adventofcode2023\Solutions\SolutionResult;
+use Bizbozo\Adventofcode2023\Solutions\UnitResult;
+
 class Solution
 {
     public static function solve($inputStream) {
@@ -28,7 +31,16 @@ class Solution
             'zero' => 0
         ];
 
-        $sum = 0;
+        $sum1 = 0;
+        foreach ($inputStream as $line) {
+            if (preg_match('/.*?(\d).*/', $line, $match)) {
+                $left = $match[1];
+                if (preg_match('/.*(\d).*?/', $line, $match)) {
+                    $sum1 += $left * 10 + $match[1];
+                }
+            }
+        }
+        $sum2 = 0;
         foreach ($inputStream as $line) {
             if (preg_match('/.*?(\d|one|two|three|four|five|six|seven|eight|nine|zero).*/', $line, $match)) {
                 $left = $match[1];
@@ -36,12 +48,16 @@ class Solution
                     $right = $match[1];
 
                     $number = $values[$left] . $values[$right];
-                    $sum += $number;
+                    $sum2 += $number;
                 }
             }
         }
 
-        echo $sum .PHP_EOL;
+        return new SolutionResult(
+            1,
+            new UnitResult("calibration value-sum", $sum1, ' cp'),
+            new UnitResult("corrected calibration value-sum", $sum2, ' cp')
+        );
 
     }
 

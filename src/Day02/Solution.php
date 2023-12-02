@@ -2,6 +2,9 @@
 
 namespace Bizbozo\Adventofcode2023\Day02;
 
+use Bizbozo\Adventofcode2023\Solutions\SolutionResult;
+use Bizbozo\Adventofcode2023\Solutions\UnitResult;
+
 class Solution
 {
     static function parseData($strean)
@@ -34,7 +37,7 @@ class Solution
 
         $games = static::parseData($inputStream);
 
-        $setPowerSum =0;
+        $setPowerSum = 0;
         $score = 0;
         foreach ($games as $id => $game) {
             /** @var Game $game */
@@ -46,9 +49,11 @@ class Solution
             $setPowerSum += $game->getMinCubes()->power();
         }
 
-        echo "Day 2 - Part 1: The score is " . $score . PHP_EOL;
-
-        echo "Day 2 - Part 2: Set-Power-Sum is ". $setPowerSum . PHP_EOL;
+        return new SolutionResult(
+            2,
+            new UnitResult("Score", $score, 'points'),
+            new UnitResult("Set-Power-Sum", $score, 'powerpoints')
+        );
 
     }
 }
