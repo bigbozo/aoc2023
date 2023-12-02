@@ -21,11 +21,10 @@ class Game
 
     public function isValid($red = 0, $green = 0, $blue = 0)
     {
-        foreach ($this->draws as $draw) {
-            if ($draw->red > $red) return false;
-            if ($draw->green > $green) return false;
-            if ($draw->blue > $blue) return false;
-        }
+        $minCubes = $this->getMinCubes();
+        if ($minCubes->red > $red) return false;
+        if ($minCubes->green > $green) return false;
+        if ($minCubes->blue > $blue) return false;
         return true;
     }
 
