@@ -1,3 +1,5 @@
 vendor/
 input/day1.txt
 input/day2.txt
+input/day*.txt
+!input/day*test.txt
