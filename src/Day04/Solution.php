@@ -16,18 +16,26 @@ class Solution implements SolutionInterface
         $data = static::parseInput($inputStream);
 
         $score = 0;
-        foreach ($data as $card) {
+        $copies=array_fill(0,count($data),1);
+        foreach ($data as $card_number => $card) {
             $count = count(array_intersect($card['win'], $card['test']));
+            $num_cards = $copies[$card_number];
             if ($count>0) {
                 $score += pow(2, $count -1);
+                for ($i=0;$i<$count;$i++) {
+                    if (isset($copies[$card_number+$i+1])) {
+                        $copies[$card_number+$i+1]+=$num_cards;
+                    } else {
+                        $copies[$card_number+$i+1]=$num_cards;
+                    }
+                }
             }
         }
-
 
         return new SolutionResult(
             4,
             new UnitResult('Points', $score, 'pt'),
-            new UnitResult('Points', $score, 'pt')
+            new UnitResult('Points', array_sum($copies), 'pt')
         );
     }
 
