@@ -2,10 +2,11 @@
 
 namespace Bizbozo\Adventofcode2023\Day02;
 
+use Bizbozo\Adventofcode2023\Solutions\SolutionInterface;
 use Bizbozo\Adventofcode2023\Solutions\SolutionResult;
 use Bizbozo\Adventofcode2023\Solutions\UnitResult;
 
-class Solution
+class Solution implements SolutionInterface
 {
     static function parseData($strean)
     {
@@ -32,7 +33,7 @@ class Solution
         return $games;
     }
 
-    public static function solve($inputStream)
+    public static function solve($inputStream): SolutionResult
     {
 
         $games = static::parseData($inputStream);
