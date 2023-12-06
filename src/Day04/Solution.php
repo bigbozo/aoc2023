@@ -35,7 +35,7 @@ class Solution implements SolutionInterface
         return new SolutionResult(
             4,
             new UnitResult('Points', $score, 'pt'),
-            new UnitResult('Points', array_sum($copies), 'pt')
+            new UnitResult('Card-Count', array_sum($copies), 'c')
         );
     }
 

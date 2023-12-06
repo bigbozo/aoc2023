@@ -36,9 +36,9 @@ class Solution implements SolutionInterface
         $sum1 = 0;
         foreach ($inputStream as $line) {
             if (preg_match('/.*?(\d).*/', $line, $match)) {
-                $left = $match[1];
+                $left = (int)$match[1];
                 if (preg_match('/.*(\d).*?/', $line, $match)) {
-                    $sum1 += $left * 10 + $match[1];
+                    $sum1 += $left * 10 + (int)$match[1];
                 }
             }
         }
