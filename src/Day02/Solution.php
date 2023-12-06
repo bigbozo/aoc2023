@@ -53,7 +53,7 @@ class Solution implements SolutionInterface
         return new SolutionResult(
             2,
             new UnitResult("Score", $score, 'points'),
-            new UnitResult("Set-Power-Sum", $score, 'powerpoints')
+            new UnitResult("Set-Power-Sum", $setPowerSum, 'powerpoints')
         );
 
     }
