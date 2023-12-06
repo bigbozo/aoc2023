@@ -34,7 +34,7 @@ class Solution implements SolutionInterface
         ];
 
         $sum1 = 0;
-        foreach ($inputStream as $line) {
+        foreach (explode("\n", $inputStream) as $line) {
             if (preg_match('/.*?(\d).*/', $line, $match)) {
                 $left = (int)$match[1];
                 if (preg_match('/.*(\d).*?/', $line, $match)) {
@@ -43,7 +43,7 @@ class Solution implements SolutionInterface
             }
         }
         $sum2 = 0;
-        foreach ($inputStream as $line) {
+        foreach (explode("\n", $inputStream) as $line) {
             if (preg_match('/.*?(\d|one|two|three|four|five|six|seven|eight|nine|zero).*/', $line, $match)) {
                 $left = $match[1];
                 if (preg_match('/.*(\d|one|two|three|four|five|six|seven|eight|nine|zero).*?/', $line, $match)) {

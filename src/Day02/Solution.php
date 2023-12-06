@@ -36,7 +36,7 @@ class Solution implements SolutionInterface
     public static function solve($inputStream): SolutionResult
     {
 
-        $games = static::parseData($inputStream);
+        $games = static::parseData(explode(PHP_EOL, $inputStream));
 
         $setPowerSum = 0;
         $score = 0;

@@ -12,7 +12,7 @@ class Solution implements SolutionInterface
     public static function solve($inputStream): SolutionResult
     {
 
-        $data = static::parseInput($inputStream);
+        $data = static::parseInput(explode(PHP_EOL,$inputStream));
 
         $sum = 0;
         $symbol_numbers = [];

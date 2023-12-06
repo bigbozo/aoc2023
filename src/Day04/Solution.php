@@ -13,7 +13,7 @@ class Solution implements SolutionInterface
     #[\Override]
     public static function solve($inputStream): SolutionResult
     {
-        $data = static::parseInput($inputStream);
+        $data = static::parseInput(explode(PHP_EOL, $inputStream));
 
         $score = 0;
         $copies = array_fill(0, count($data), 1);
@@ -43,6 +43,9 @@ class Solution implements SolutionInterface
     {
         $data = [];
         foreach ($inputStream as $line) {
+            if (!trim($line)) {
+                continue;
+            }
             list($card, $numbers) = explode(': ', chop($line));
             list($winNumbers, $testNumbers) = explode('| ', $numbers);
             $data[] = [

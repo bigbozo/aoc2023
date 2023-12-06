@@ -1,0 +1,20 @@
+<?php
+
+namespace Bizbozo\Adventofcode2023\Day###DAY###;
+
+use Bizbozo\Adventofcode2023\Solutions\SolutionInterface;
+use Bizbozo\Adventofcode2023\Solutions\SolutionResult;
+use Bizbozo\Adventofcode2023\Solutions\UnitResult;
+
+class Solution implements SolutionInterface
+{
+
+    #[\Override] public static function solve($inputStream): SolutionResult
+    {
+        return new SolutionResult(
+            ###day###,
+            new UnitResult('',0,''),
+            new UnitResult('',0,'')
+        );
+    }
+}

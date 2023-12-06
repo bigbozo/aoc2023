@@ -24,6 +24,11 @@ class Solution implements SolutionInterface
         );
     }
 
+    /**
+     * parses the input string with newlines
+     * @param $inputStream
+     * @return array
+     */
     private static function parseInput($inputStream)
     {
         list($timeString, $distanceString) = explode(PHP_EOL, $inputStream, 3);
@@ -34,6 +39,7 @@ class Solution implements SolutionInterface
     }
 
     /**
+     * parses one line of input
      * @param string $string
      * @param string $legend
      * @return int[]
