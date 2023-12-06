@@ -43,16 +43,15 @@ class MakeSolution extends AbstractCommand
         } else {
             try {
                 $data = $this->fetchInputData($day);
-                file_put_contents($inputFilename, $data);
+                if ($data) {
+                    file_put_contents($inputFilename, $data);
+                }
                 touch($testInputFilename);
             } catch (GuzzleException $e) {
                 $output->writeln([$e->getMessage()]);
                 return Command::FAILURE;
             }
         }
-
-        $solution = $this->getSolutionFilename($day);
-
 
         return Command::SUCCESS;
 
@@ -65,6 +64,10 @@ class MakeSolution extends AbstractCommand
     private function fetchInputData(int $day): string
     {
         $client = new Client();
+
+        if (!$_ENV['APIKEY']) {
+            return false;
+        }
 
         $jar = \GuzzleHttp\Cookie\CookieJar::fromArray(
             [
