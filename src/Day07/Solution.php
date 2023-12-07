@@ -13,16 +13,12 @@ class Solution implements SolutionInterface
     {
 
         $data = static::parseInput($inputStream);
-        usort($data,fn($a,$b) => $a['score']<=>$b['score']);
-        $part1Score = 0;
-        foreach ($data as $rank=>$hand) {
-            $part1Score+=($rank+1) * $hand['bidding'];
-        }
-        usort($data,fn($a,$b) => $a['jokerScore']<=>$b['jokerScore']);
-        $part2Score = 0;
-        foreach ($data as $rank=>$hand) {
-            $part2Score+=($rank+1) * $hand['bidding'];
-        }
+
+        usort($data, fn($a, $b) => $a['score'] <=> $b['score']);
+        $part1Score = self::calculateFinalScore($data);
+
+        usort($data, fn($a, $b) => $a['jokerScore'] <=> $b['jokerScore']);
+        $part2Score = self::calculateFinalScore($data);
 
         return new SolutionResult(
             7,
@@ -42,7 +38,7 @@ class Solution implements SolutionInterface
                 'hand' => $hand,
                 'bidding' => $bidding,
                 'score' => static::scoreHand($hand),
-                'jokerScore'=> static::scoreHand($hand,1)
+                'jokerScore' => static::scoreHand($hand, 1)
             ];
         }
         return $hands;
@@ -52,7 +48,7 @@ class Solution implements SolutionInterface
     {
         $scores = array_flip(['11111', '2111', '221', '311', '32', '41', '5']);
         $cardValues = array_flip([2, 3, 4, 5, 6, 7, 8, 9, 'T', 'J', 'Q', 'K', 'A']);
-        $jokerCardValues = array_flip(['J',2, 3, 4, 5, 6, 7, 8, 9, 'T', 'Q', 'K', 'A']);
+        $jokerCardValues = array_flip(['J', 2, 3, 4, 5, 6, 7, 8, 9, 'T', 'Q', 'K', 'A']);
         $sortedHand = [];
         foreach ($hand as $card) {
             $sortedHand[$card] = isset($sortedHand[$card]) ? $sortedHand[$card] + 1 : 1;
@@ -65,23 +61,29 @@ class Solution implements SolutionInterface
                 if (count($sortedHand)) {
                     $sortedHand[array_key_first($sortedHand)] += $jokers;
                 } else {
-                    $sortedHand['J']=$jokers;
+                    $sortedHand['J'] = $jokers;
                 }
             }
             arsort($sortedHand);
         }
         $score = $scores[implode('', $sortedHand)];
         foreach ($hand as $value) {
-            $score <<=4;
-            $score+=$jokers? $jokerCardValues[$value]: $cardValues[$value];
+            $score <<= 4;
+            $score += $jokers ? $jokerCardValues[$value] : $cardValues[$value];
         }
         return $score;
     }
 
-    private static function scoreJokerHand(array $hand)
+    /**
+     * @param array $data
+     * @return float|int
+     */
+    private static function calculateFinalScore(array $data): int|float
     {
-        foreach ($hand as $card) {
-            $sortedHand[$card] = isset($sortedHand[$card]) ? $sortedHand[$card] + 1 : 1;
+        $score = 0;
+        foreach ($data as $rank => $hand) {
+            $score += ($rank + 1) * $hand['bidding'];
         }
+        return $score;
     }
 }
