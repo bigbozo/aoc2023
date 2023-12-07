@@ -22,12 +22,12 @@ class Solution implements SolutionInterface
         list($seeds, $steps) = static::parseInput($inputStream);
 
         // Part 1
-        $finalValues = [];
+        $locations = [];
         foreach ($seeds as $seed) {
             foreach ($steps as $step) {
                 $seed = static::makeStep($seed, $step);
             }
-            $finalValues[] = $seed;
+            $locations[] = $seed;
         }
 
         // Part 2
@@ -67,12 +67,10 @@ class Solution implements SolutionInterface
 
 
         sort($minLocations);
-        $amount2 = min($minLocations);
-
         return new SolutionResult(
             5,
-            new UnitResult('lowest location number', min($finalValues), 'loc'),
-            new UnitResult('lowest location number', $amount2, 'loc')
+            new UnitResult('lowest location number', min($locations), 'loc'),
+            new UnitResult('lowest location number', min($minLocations), 'loc')
         );
     }
 
