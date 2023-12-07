@@ -18,5 +18,8 @@
             "name": "bugi",
             "email": "bugi@joboland.de"
         }
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    }
 }

@@ -4,3 +4,4 @@ input/day2.txt
 input/day*.txt
 !input/day*test.txt
 .env
+/.phpunit.result.cache
