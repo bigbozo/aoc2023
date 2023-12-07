@@ -35,13 +35,18 @@ class Solution implements SolutionInterface
         $minLocations = [];
         foreach ($seedIntervals as $seedInterval) {
             $intervals = [
-                new Range(start: (int)$seedInterval[0], end: (int)$seedInterval[0] + $seedInterval[1] - 1)
+                new Range(
+                    start: (int)$seedInterval[0],
+                    end: (int)$seedInterval[0] + $seedInterval[1] - 1
+                )
             ];
             foreach ($steps as $step) {
                 $newIntervals = [];
                 foreach ($step as $rule) {
-                    $ruleRight = $rule['source'] + $rule['width'] - 1;
-                    $ruleInterval = new Range($rule['source'], $ruleRight);
+                    $ruleInterval = new Range(
+                        start: $rule['source'],
+                        end: $rule['source'] + $rule['width'] - 1
+                    );
                     for ($i = 0; $i < count($intervals); $i++) {
                         $interval = $intervals[$i];
                         if ($intersection = $interval->intersect($ruleInterval)) {
@@ -55,9 +60,7 @@ class Solution implements SolutionInterface
                 }
                 $intervals = array_merge($intervals, $newIntervals);
             }
-            $minLocation = min(array_map(function ($interval) {
-                return $interval->start;
-            }, $intervals));
+            $minLocation = min(array_column($intervals,'start'));
             $minLocations[] = $minLocation;
 
         }
