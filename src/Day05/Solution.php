@@ -2,6 +2,7 @@
 
 namespace Bizbozo\Adventofcode2023\Day05;
 
+use Bizbozo\Adventofcode2023\Ranges\Range;
 use Bizbozo\Adventofcode2023\Solutions\SolutionInterface;
 use Bizbozo\Adventofcode2023\Solutions\SolutionResult;
 use Bizbozo\Adventofcode2023\Solutions\UnitResult;
@@ -34,84 +35,34 @@ class Solution implements SolutionInterface
         $minLocations = [];
         foreach ($seedIntervals as $seedInterval) {
             $intervals = [
-                [
-                    'start' => (int)$seedInterval[0],
-                    'end' => (int)$seedInterval[0] + $seedInterval[1] - 1,
-                ]
+                new Range(start: (int)$seedInterval[0], end: (int)$seedInterval[0] + $seedInterval[1] - 1)
             ];
             foreach ($steps as $step) {
                 $newIntervals = [];
                 foreach ($step as $rule) {
                     $ruleRight = $rule['source'] + $rule['width'] - 1;
+                    $ruleInterval = new Range($rule['source'], $ruleRight);
                     for ($i = 0; $i < count($intervals); $i++) {
                         $interval = $intervals[$i];
-                        if (
-                            $interval['start'] > $ruleRight ||
-                            $interval['end'] < $rule['source']
-                        ) {
-                            // außerhalb, muss für nächste Regel erhalten bleiben
-                        }
-                        elseif (
-                            $interval['start'] < $rule['source'] &&
-                            $interval['end'] > $ruleRight
-                        ) {
-                            // umgebend
+                        if ($intersection = $interval->intersect($ruleInterval)) {
                             array_splice($intervals, $i--, 1);
-                            $newIntervals[] = ['start' => $rule['source'], 'end' => $ruleRight];
-                            $intervals[] = ['start' => $interval['start'], 'end' => $rule['source'] - 1];
-                            $intervals[] = ['start' => $ruleRight + 1, 'end' => $interval['end']];
-
-                        }
-                        elseif (
-                            $interval['start'] >= $rule['source'] &&
-                            $interval['end'] <= $ruleRight
-                        ) {
-                            // innerhalb, volle Verschiebung
-                            array_splice($intervals, $i--, 1);
-                            $newIntervals[] = [
-                                'start' => $interval['start'] + $rule['offset'],
-                                'end' => $interval['end'] + $rule['offset']
-                            ];
-
-                        }
-                        elseif (
-                            $interval['start'] < $rule['source']
-                        ) {
-                            // Überschneidung von links
-                            array_splice($intervals, $i--, 1);
-                            $intervals[] = [
-                                'start' => $interval['start'],
-                                'end' => $rule['source'] - 1
-                            ];
-                            $newIntervals[] = [
-                                'start' => $rule['source'] + $rule['offset'],
-                                'end' => $ruleRight + $rule['offset']
-                            ];
-                        }
-                        else {
-                            // Überschneidung von rechts
-                            // links offset anwenden
-                            array_splice($intervals, $i--, 1);
-                            $newIntervals[] = [
-                                'start' => $interval['start'] + $rule['offset'],
-                                'end' => $ruleRight + $rule['offset']
-                            ];
-                            // rechts kein offset
-                            $intervals[] = [
-                                'start' => $ruleRight + 1,
-                                'end' => $interval['end']
-                            ];
+                            $newIntervals[] = $intersection->shift($rule['offset']);
+                            if ($differences = $interval->difference($intersection)) {
+                                $intervals = array_merge($intervals, $differences);
+                            }
                         }
                     }
                 }
                 $intervals = array_merge($intervals, $newIntervals);
             }
             $minLocation = min(array_map(function ($interval) {
-                return $interval['start'];
+                return $interval->start;
             }, $intervals));
             $minLocations[] = $minLocation;
 
         }
+
+
         sort($minLocations);
         $amount2 = min($minLocations);
 
