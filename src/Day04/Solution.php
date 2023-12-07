@@ -22,11 +22,7 @@ class Solution implements SolutionInterface
             if ($count > 0) {
                 $score += pow(2, $count - 1);
                 for ($i = 0; $i < $count; $i++) {
-                    if (isset($copies[$card_number + $i + 1])) {
-                        $copies[$card_number + $i + 1] += $num_cards;
-                    } else {
-                        $copies[$card_number + $i + 1] = $num_cards;
-                    }
+                    $copies[$card_number + $i + 1] = ($copies[$card_number + $i + 1] ?? 0) + $num_cards;
                 }
             }
         }
