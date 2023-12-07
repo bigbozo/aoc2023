@@ -14,49 +14,36 @@ class Solution implements SolutionInterface
 
         $data = static::parseInput(explode(PHP_EOL,$inputStream));
 
-        $sum = 0;
-        $symbol_numbers = [];
-        foreach ($data['symbols'] as $symbol) {
+        $part1sum = 0;
+        $gear_numbers = [];
 
-            for ($x = -1; $x <= 1; $x++) {
-                for ($y = -1; $y <= 1; $y++) {
-                    $number_id = isset($data['field'][$x + $symbol['position']['x']][$y + $symbol['position']['y']]) ? $data['field'][$x + $symbol['position']['x']][$y + $symbol['position']['y']] : -1;
-                    if ($number_id > -1) {
-                        $symbol_numbers[$number_id] = $data['numbers'][$number_id];
-                    }
-                }
-            }
-        }
-        $part1sum = array_sum($symbol_numbers);
-
-        // Part 2
         foreach ($data['symbols'] as $symbol) {
             $symbol_numbers = [];
-            if ($symbol['char'] !== '*') continue;
-            for ($x = -1; $x <= 1; $x++) {
-                for ($y = -1; $y <= 1; $y++) {
-                    $number_id = isset($data['field'][$x + $symbol['position']['x']][$y + $symbol['position']['y']]) ? $data['field'][$x + $symbol['position']['x']][$y + $symbol['position']['y']] : -1;
-                    if ($number_id > -1) {
-                        $symbol_numbers[$number_id] = $data['numbers'][$number_id];
-                    }
-                }
-            }
+            static::calculateSymbolNumbers($symbol, $symbol_numbers, $data);
+            $part1sum += array_sum($symbol_numbers);
 
-            if (count($symbol_numbers) === 2) {
-                $gearCount = 1;
-                foreach ($symbol_numbers as $number) {
-                    $gearCount *= $number;
-                }
+            if ($symbol['char'] === '*' && count($symbol_numbers) === 2) {
+                $gearCount = array_product($symbol_numbers);
                 $gear_numbers[] = $gearCount;
             }
         }
-
 
         return new SolutionResult(3,
             new UnitResult('Partnumber-Sum', $part1sum, 'pns'),
             new UnitResult('Gear-Ratio-Sum', array_sum($gear_numbers), 'grs')
         );
+    }
 
+    private static function calculateSymbolNumbers($symbol, &$symbol_numbers, $data)
+    {
+            for ($x = -1; $x <= 1; $x++) {
+                for ($y = -1; $y <= 1; $y++) {
+                    $number_id = $data['field'][$x + $symbol['position']['x']][$y + $symbol['position']['y']] ?? -1;
+                    if ($number_id > -1) {
+                        $symbol_numbers[$number_id] = $data['numbers'][$number_id];
+                    }
+                }
+            }
     }
 
     private static function parseInput($inputStream)
