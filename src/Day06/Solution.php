@@ -90,12 +90,7 @@ class Solution implements SolutionInterface
      */
     private static function leftExlusiveInt(float|int $left): int|float
     {
-        if (ceil($left) != $left) {
-            $left = ceil($left);
-        } else {
-            $left = $left + 1;
-        }
-        return $left;
+        return (ceil($left) != $left) ? ceil($left) : $left + 1;
     }
 
     /**
