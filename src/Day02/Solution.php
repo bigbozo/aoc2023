@@ -33,7 +33,7 @@ class Solution implements SolutionInterface
         return $games;
     }
 
-    public static function solve($inputStream): SolutionResult
+    #[\Override] public static function solve(string $inputStream): SolutionResult
     {
 
         $games = static::parseData(explode(PHP_EOL, $inputStream));

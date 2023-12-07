@@ -9,8 +9,16 @@ use Bizbozo\Adventofcode2023\Solutions\UnitResult;
 class Solution implements SolutionInterface
 {
 
-    #[\Override] public static function solve($inputStream): SolutionResult
+    private static function parseData(array $lines)
     {
+
+    }
+
+    #[\Override] public static function solve(string $inputStream): SolutionResult
+    {
+
+        $data = static::parseData(explode(PHP_EOL, $inputStream));
+
         return new SolutionResult(
             ###day###,
             new UnitResult('',0,''),

@@ -9,7 +9,7 @@ use Bizbozo\Adventofcode2023\Solutions\UnitResult;
 class Solution implements SolutionInterface
 {
 
-    #[\Override] public static function solve($inputStream): SolutionResult
+    #[\Override] public static function solve(string $inputStream): SolutionResult
     {
 
         list($times, $distances) = static::parseInput($inputStream);

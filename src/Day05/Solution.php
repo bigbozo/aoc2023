@@ -9,7 +9,13 @@ use Bizbozo\Adventofcode2023\Solutions\UnitResult;
 class Solution implements SolutionInterface
 {
 
-    #[\Override] public static function solve($inputStream): SolutionResult
+    /**
+     * Solves the given problem.
+     *
+     * @param string $inputStream The input stream containing the problem data.
+     * @return SolutionResult The solution result containing the lowest location numbers.
+     */
+    #[\Override] public static function solve(string $inputStream): SolutionResult
     {
 
         list($seeds, $steps) = static::parseInput($inputStream);
