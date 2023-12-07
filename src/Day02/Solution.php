@@ -8,31 +8,6 @@ use Bizbozo\Adventofcode2023\Solutions\UnitResult;
 
 class Solution implements SolutionInterface
 {
-    static function parseData($strean)
-    {
-        $games = [];
-        foreach ($strean as $line) {
-            // Capture id and subsets: Game (3): (8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red)
-            if (preg_match('/Game\s(\d+):\s(.*)$/', chop($line), $match)) {
-                // match: 1=> Game-ID, 2=> subsets
-                $games[$match[1]] = new Game(array_reduce(explode('; ', $match[2]), function ($carry, $subset) {
-                    // subset: e.g. 8 green, 6 blue, 20 red
-                    $draw = [];
-                    $colorCounts = explode(', ', $subset);
-                    foreach ($colorCounts as $colorCount) {
-                        // colorCount: e.g. 8 green
-                        list($count, $color) = explode(' ', $colorCount);
-                        $draw[$color] = $count;
-                    }
-                    // draw: e.g. [red: 20, green: 8, blue: 6]
-                    $carry[] = CubeDraw::fromTest($draw);
-                    return $carry;
-                }, []));
-            };
-        }
-        return $games;
-    }
-
     #[\Override] public static function solve(string $inputStream): SolutionResult
     {
 
@@ -57,4 +32,46 @@ class Solution implements SolutionInterface
         );
 
     }
+
+    /**
+     * Parse the data into games
+     */
+    public static function parseData($stream): array
+    {
+        $games = [];
+        foreach ($stream as $line) {
+            if (preg_match('/Game\s(\d+):\s(.*)$/', rtrim($line), $match)) {
+                // match: 1=> Game-ID, 2=> subsets
+                $games[$match[1]] = new Game(self::parseSubsets($match[2]));
+            };
+        }
+        return $games;
+    }
+
+    /**
+     * Parse the subsets string into an array of CubeDraw
+     */
+    private static function parseSubsets(string $subsetsString): array
+    {
+        $subsets = explode('; ', $subsetsString);
+        return array_reduce($subsets, function ($carry, $subset) {
+            $carry[] = CubeDraw::fromTest(self::parseDraw($subset));
+            return $carry;
+        }, []);
+    }
+
+    /**
+     * Parse the draw string into an associative array
+     */
+    private static function parseDraw(string $drawString): array
+    {
+        $draw = [];
+        $colorCounts = explode(', ', $drawString);
+        foreach ($colorCounts as $colorCount) {
+            [$count, $color] = explode(' ', $colorCount);
+            $draw[$color] = $count;
+        }
+        return $draw;
+    }
+
 }
