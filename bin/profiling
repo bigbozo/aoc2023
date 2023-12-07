@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Ensure an argument has been provided
+if [ -z "$1" ]
+then
+    echo "Please provide an argument"
+    exit 1
+fi
+
+# Loop from 1 to the provided argument
+for i in $(seq 1 $1)
+do
+   echo "Benchmark day $i"
+   time bin/aoc run $i
+done
