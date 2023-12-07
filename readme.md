@@ -13,3 +13,7 @@ https://adventofcode.com/2023/
 
 ## Notes
   - [revisiting day 05](blog/day06.md)
+
+## Runtime for day 5
+    bin/aoc run 5  0.05s user 0.02s system 90% cpu 0.071 total
+    
