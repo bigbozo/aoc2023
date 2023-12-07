@@ -16,7 +16,7 @@ This is how it went:
 ## Jetbrains AI ( _Jay_ ) Usage
 After shortcutting the 
 
-### [src/Ranges/Range.php](src/Ranges/Range.php)
+### [src/Ranges/Range.php](../src/Ranges/Range.php)
 First tried invocation inline in the body of method intersect. 
 Alas, Jay wanted to put the (elegant) code produced at the beginning of the file.
 So manual mouse-handling required to copy/paste the function into the class body.
@@ -34,7 +34,7 @@ Here Jays response to the last of the following question:
     5. "add test for empty intersection between two ranges"
     6. "can you get me all my inputs in order? I want to document my chat with you for future reference"
 
-The results can be found in [tests/Ranges/RangeTest.php](tests/Ranges/RangeTest.php). 
+The results can be found in [tests/Ranges/RangeTest.php](../tests/Ranges/RangeTest.php). 
 I had to change some method names. 
 In my class the intersection-method is called intersect, so I should have asked for that. 
 Jay didn't anticipate that the difference of intervals (2) isn't neccessarily a single range but with (4) 
