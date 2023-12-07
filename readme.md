@@ -9,3 +9,7 @@ https://adventofcode.com/2023/
 ## Run solution
 
     bin/aoc run <day> [<to_day>]
+
+
+## Notes
+  - [revisiting day 05](blog/day06.md)
