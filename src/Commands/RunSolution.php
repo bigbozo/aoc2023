@@ -30,13 +30,17 @@ class RunSolution extends AbstractCommand
 
 
             $class = 'Bizbozo\Adventofcode2023\Day' . $this->leadingZero($day) . '\Solution';
-            $testInputFilename = $this->getTestInputFilename($day);
+            $testInputFilenames = $this->getTestInputFilenames($day);
             $inputFilename = $this->getInputFilename($day);
 
 
             $style->section(chop($headlines[$day - 1]));
-            if (file_exists($testInputFilename)) {
-                call_user_func([$class, 'solve'], file_get_contents($testInputFilename))->output('TEST');
+            if (file_exists($testInputFilenames[0])) {
+                if (file_exists($testInputFilenames[1])) {
+                    call_user_func([$class, 'solve'], file_get_contents($testInputFilenames[0]),file_get_contents($testInputFilenames[1]))->output('TEST');
+                } else {
+                    call_user_func([$class, 'solve'], file_get_contents($testInputFilenames[0]))->output('TEST');
+                }
             }
             if (file_exists($inputFilename)) {
                 call_user_func([$class, 'solve'], file_get_contents($inputFilename))->output('LIVE');

@@ -10,7 +10,7 @@ class Solution implements SolutionInterface
 {
 
 
-    #[\Override] public static function solve(string $inputStream): SolutionResult
+    #[\Override] public static function solve(string $inputStream, string $inputStream2 = null): SolutionResult
     {
         $data = static::parseInput(explode(PHP_EOL, $inputStream));
 

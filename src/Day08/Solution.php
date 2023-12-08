@@ -24,7 +24,7 @@ class Solution implements SolutionInterface
 
     }
 
-    #[\Override] public static function solve(string $inputStream): SolutionResult
+    #[\Override] public static function solve(string $inputStream, string $inputStream2 = null): SolutionResult
     {
 
         list($instructions, $nodes) = static::parseData(explode(PHP_EOL, $inputStream));

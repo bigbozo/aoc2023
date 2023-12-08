@@ -8,7 +8,7 @@ use Bizbozo\Adventofcode2023\Solutions\UnitResult;
 
 class Solution implements SolutionInterface
 {
-    #[\Override] public static function solve(string $inputStream): SolutionResult
+    #[\Override] public static function solve(string $inputStream, string $inputStream2 = null): SolutionResult
     {
         $values = [
             0 => 0,
@@ -49,7 +49,7 @@ class Solution implements SolutionInterface
                 if (preg_match('/.*(\d|one|two|three|four|five|six|seven|eight|nine|zero).*?/', $line, $match)) {
                     $right = $match[1];
 
-                    $number = $values[$left] . $values[$right];
+                    $number = (int)($values[$left] . $values[$right]);
                     $sum2 += $number;
                 }
             }

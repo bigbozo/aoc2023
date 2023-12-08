@@ -2,6 +2,7 @@
 
 namespace Bizbozo\Adventofcode2023\Day05;
 
+use Bizbozo\Adventofcode2023\Ranges\InvalidArgumentException;
 use Bizbozo\Adventofcode2023\Ranges\Range;
 use Bizbozo\Adventofcode2023\Solutions\SolutionInterface;
 use Bizbozo\Adventofcode2023\Solutions\SolutionResult;
@@ -13,10 +14,12 @@ class Solution implements SolutionInterface
     /**
      * Solves the given problem.
      *
-     * @param string $inputStream The input stream containing the problem data.
+     * @param string $inputStream
+     * @param string|null $inputStream2
      * @return SolutionResult The solution result containing the lowest location numbers.
+     * @throws InvalidArgumentException
      */
-    #[\Override] public static function solve(string $inputStream): SolutionResult
+    #[\Override] public static function solve(string $inputStream, string $inputStream2 = null): SolutionResult
     {
 
         list($seeds, $steps) = static::parseInput($inputStream);

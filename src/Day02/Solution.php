@@ -8,7 +8,7 @@ use Bizbozo\Adventofcode2023\Solutions\UnitResult;
 
 class Solution implements SolutionInterface
 {
-    #[\Override] public static function solve(string $inputStream): SolutionResult
+    #[\Override] public static function solve(string $inputStream, string $inputStream2 = null): SolutionResult
     {
 
         $games = static::parseData(explode(PHP_EOL, $inputStream));
@@ -43,7 +43,7 @@ class Solution implements SolutionInterface
             if (preg_match('/Game\s(\d+):\s(.*)$/', rtrim($line), $match)) {
                 // match: 1=> Game-ID, 2=> subsets
                 $games[$match[1]] = new Game(self::parseSubsets($match[2]));
-            };
+            }
         }
         return $games;
     }

@@ -11,9 +11,12 @@ class AbstractCommand extends Command
         return sprintf("%s/../../input/day%s.txt", __DIR__, $this->leadingZero($day));
     }
 
-    protected function getTestInputFilename(int $day)
+    protected function getTestInputFilenames(int $day)
     {
-        return sprintf("%s/../../input/day%s-test.txt", __DIR__, $this->leadingZero($day));
+        return [
+            sprintf("%s/../../input/day%s-test.txt", __DIR__, $this->leadingZero($day)),
+            sprintf("%s/../../input/day%s-test2.txt", __DIR__, $this->leadingZero($day))
+        ];
     }
 
     /**

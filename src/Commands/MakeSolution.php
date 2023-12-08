@@ -3,6 +3,7 @@
 namespace Bizbozo\Adventofcode2023\Commands;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -36,7 +37,7 @@ class MakeSolution extends AbstractCommand
         }
 
         $inputFilename = $this->getInputFilename($day);
-        $testInputFilename = $this->getTestInputFilename($day);
+        $testInputFilenames = $this->getTestInputFilenames($day);
         if (file_exists($inputFilename)) {
             $output->writeln(['Input-File exists. Aborting',]);
             return Command::FAILURE;
@@ -46,7 +47,7 @@ class MakeSolution extends AbstractCommand
                 if ($data) {
                     file_put_contents($inputFilename, $data);
                 }
-                touch($testInputFilename);
+                touch($testInputFilenames[0]);
             } catch (GuzzleException $e) {
                 $output->writeln([$e->getMessage()]);
                 return Command::FAILURE;
@@ -69,7 +70,7 @@ class MakeSolution extends AbstractCommand
             return false;
         }
 
-        $jar = \GuzzleHttp\Cookie\CookieJar::fromArray(
+        $jar = CookieJar::fromArray(
             [
                 'session' => $_ENV['APIKEY'],
             ],

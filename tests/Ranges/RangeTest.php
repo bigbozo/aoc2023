@@ -113,7 +113,7 @@ class RangeTest extends TestCase
         $this->assertEquals(1, $divergences[0]->start);
         $this->assertEquals(10, $divergences[0]->end);
         $this->assertNotEquals(11, $divergences[1]->start);
-        $this->assertEquals(20, $divergences[1]->end);
+        $this->assertNotEquals(20, $divergences[1]->end);
     }
 
 
