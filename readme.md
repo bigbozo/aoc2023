@@ -2,7 +2,7 @@
 
 https://adventofcode.com/2023/
 
-## [Benchmarks](docs/benchmark.html)
+## [Benchmarks](docs/benchmark.txt)
 
 ## Stub-Generator
 
