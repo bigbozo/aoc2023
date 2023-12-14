@@ -14,22 +14,26 @@ class Solution implements SolutionInterface
     {
         $map = self::parseMap($inputStream);
         // Part 1
-        list($map, $sum1) = self::gravity($map);
+        $map = self::gravity($map);
+        $sum1 = self::score($map);
 
         // reinitialize for Part 2
-        $map = self::parseMap($inputStream);
+//        $map = self::parseMap($inputStream);
         $cycle = 0;
-        $cycles = 1_000;
+        $cycles = 1_000_000_000;
         $period = 0;
+        $cache[self::mapKey($map)] = 0;
         while ($cycle < $cycles) {
             for ($i = 0; $i < 4; $i++) {
-                list($map, $sum2) = self::gravity($map);
+                $map = self::gravity($map);
                 $map = self::rotateMap($map);
             }
+            $sum2 = self::score($map);
             $cycle++;
 
+
             $mapKey = self::mapKey($map);
-            if (!$period && $cycle && isset($cache[$mapKey])) {
+            if (!$period && $cycle && isset($cache[$mapKey]) && $cache[$mapKey]) {
                 $period = $cycle - $cache[$mapKey];
                 $cycle = $cycles - ($cycles - $cycle) % $period;
             }
@@ -37,6 +41,7 @@ class Solution implements SolutionInterface
             $cache[$mapKey] = $cycle;
 
         }
+
         // 105664 is too high
         return new SolutionResult(
             14,
@@ -55,20 +60,18 @@ class Solution implements SolutionInterface
         $height = count($map);
         $newMap = array_fill(0, $height, array_fill(0, $width, '.'));
         $max = array_fill(0, $width, $height);
-        $sum = 0;
         for ($y = 0; $y < $height; $y++) {
             for ($x = 0; $x < $width; $x++) {
                 if ($map[$y][$x] == '#') {
                     $max[$x] = $height - $y - 1;
                     $newMap[$y][$x] = '#';
                 } elseif ($map[$y][$x] == 'O') {
-                    $sum += $max[$x];
                     $newMap[$height - $max[$x]][$x] = 'O';
                     $max[$x]--;
                 }
             }
         }
-        return array($newMap, $sum);
+        return $newMap;
     }
 
     /**
@@ -88,7 +91,7 @@ class Solution implements SolutionInterface
         $newMap = array_fill(0, $width, array_fill(0, $height, '.'));
         for ($x = 0; $x < $width; $x++) {
             for ($y = 0; $y < $height; $y++) {
-                $newMap[$x][$height - $y - 1] = $map[$y][$x];
+                $newMap[$x][$height - 1 - $y] = $map[$y][$x];
             }
         }
         return $newMap;
@@ -110,5 +113,17 @@ class Solution implements SolutionInterface
             array_filter(explode(PHP_EOL, $inputStream), fn($line) => trim($line))
         );
         return $map;
+    }
+
+    private static function score(array $map): int
+    {
+        $height = count($map);
+        $score = 0;
+        foreach ($map as $y => $line) {
+            foreach ($line as $x => $item) {
+                if ($item == 'O') $score += $height - $y;
+            }
+        }
+        return $score;
     }
 }
