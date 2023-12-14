@@ -2,6 +2,8 @@
 
 https://adventofcode.com/2023/
 
+## [Benchmarks](docs/benchmark.html)
+
 ## Stub-Generator
 
     bin/aoc generate <day>

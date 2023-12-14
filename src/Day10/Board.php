@@ -235,7 +235,7 @@ class Board
         }
 
         // draw the image for debugging purposes
-        $this->drawImage($area);
+        //$this->drawImage($area);
 
         return $area;
 

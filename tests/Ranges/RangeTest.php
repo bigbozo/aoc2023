@@ -1,6 +1,6 @@
 <?php
 
-namespace Ranges;
+namespace Bizbozo\Adventofcode2023\Tests\Ranges;
 
 use Bizbozo\Adventofcode2023\Ranges\InvalidArgumentException;
 use Bizbozo\Adventofcode2023\Ranges\Range;
