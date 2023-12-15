@@ -52,8 +52,8 @@ class Solution implements SolutionInterface
 
         return new SolutionResult(
             15,
-            new UnitResult('', $result, ''),
-            new UnitResult('', $result2, '')
+            new UnitResult('sum of results', $result, ''),
+            new UnitResult('focusing power of lens configuration', $result2, '')
         );
     }
 
