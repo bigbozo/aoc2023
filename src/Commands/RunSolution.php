@@ -23,7 +23,8 @@ class RunSolution extends AbstractCommand
         $style = new SymfonyStyle($input, $output);
         $headlines = file(__DIR__ . '/../../Headlines.txt');
 
-        $fromday = (int)$input->getArgument('day');
+        $day = $input->getArgument('day');
+        $fromday=(int)($day=='today' ? date('j') : $day);
         $toDay = (int)$input->getArgument('to_day') ?: $fromday;
 
         for ($day = $fromday; $day <= $toDay; $day++) {
