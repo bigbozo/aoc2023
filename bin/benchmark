@@ -1,4 +1,0 @@
-#!/bin/bash
-
-PROJECT_DIR=$( dirname "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )")
-php $PROJECT_DIR/vendor/bin/phpbench run tests/Benchmark --report=default > docs/benchmark.txt

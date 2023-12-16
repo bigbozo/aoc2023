@@ -3,6 +3,7 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
+use Bizbozo\Adventofcode2023\Commands\BenchmarkCommand;
 use Bizbozo\Adventofcode2023\Commands\MakeSolution;
 use Bizbozo\Adventofcode2023\Commands\RunSolution;
 use Symfony\Component\Console\Application;
@@ -14,5 +15,6 @@ $application = new Application();
 
 $application->add(new MakeSolution());
 $application->add(new RunSolution());
+$application->add(new BenchmarkCommand());
 
 $application->run();

@@ -144,7 +144,7 @@ class Day01Bench
 
     }
    /**
-     * @Revs(1000)
+     * @Revs(100)
      */
     public function benchDay15()
     {
@@ -152,6 +152,16 @@ class Day01Bench
         \Bizbozo\Adventofcode2023\Day15\Solution::solve(file_get_contents($this->getInputFilename(15)));
 
     }
+
+    /**
+      * @Revs(1)
+      */
+     public function benchDay16()
+     {
+
+         \Bizbozo\Adventofcode2023\Day16\Solution::solve(file_get_contents($this->getInputFilename(16)));
+
+     }
 
     protected function getInputFilename(int $day)
     {

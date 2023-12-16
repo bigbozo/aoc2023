@@ -2,7 +2,7 @@
 
 https://adventofcode.com/2023/
 
-## [Benchmarks](docs/benchmark.txt)
+## [Benchmarks](docs/benchmark.md)
 
 ## Stub-Generator
 
@@ -11,6 +11,10 @@ https://adventofcode.com/2023/
 ## Run solution
 
     bin/aoc run <day> [<to_day>]
+
+## Run Benchmarks
+
+    bin/aoc benchmark
 
 
 ## Notes
