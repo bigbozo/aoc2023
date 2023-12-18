@@ -143,7 +143,8 @@ class Day01Bench
         \Bizbozo\Adventofcode2023\Day14\Solution::solve(file_get_contents($this->getInputFilename(14)));
 
     }
-   /**
+
+    /**
      * @Revs(100)
      */
     public function benchDay15()
@@ -154,14 +155,35 @@ class Day01Bench
     }
 
     /**
-      * @Revs(1)
-      */
-     public function benchDay16()
-     {
+     * @Revs(1)
+     */
+    public function benchDay16()
+    {
 
-         \Bizbozo\Adventofcode2023\Day16\Solution::solve(file_get_contents($this->getInputFilename(16)));
+        \Bizbozo\Adventofcode2023\Day16\Solution::solve(file_get_contents($this->getInputFilename(16)));
 
-     }
+    }
+
+    /**
+     * @Revs(2)
+     */
+    public function benchDay17()
+    {
+
+        \Bizbozo\Adventofcode2023\Day17\Solution::solve(file_get_contents($this->getInputFilename(17)));
+
+    }
+
+    /**
+     * @Revs(10)
+     */
+    public function benchDay18()
+    {
+
+        \Bizbozo\Adventofcode2023\Day18\Solution::solve(file_get_contents($this->getInputFilename(18)));
+
+    }
+
 
     protected function getInputFilename(int $day)
     {
